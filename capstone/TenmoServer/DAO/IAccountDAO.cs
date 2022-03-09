@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TenmoServer.Models;
 
 namespace TenmoServer.DAO
 {
@@ -9,8 +10,10 @@ namespace TenmoServer.DAO
     {
         public decimal GetBalance(int accountId);
 
-        public void IncreaseBalance(decimal amount);
+        public Account GetAccountById(int id);
 
-        public void DecreaseBalance(decimal amount); 
+        public Account IncreaseBalance(decimal amount, int id);
+
+        public Account DecreaseBalance(decimal amount, int id); 
     }
 }
