@@ -28,6 +28,10 @@ namespace TenmoServer.Models
             Account_To = accountTo;
             Amount = amount;
         }
+        
+        public Transfer() 
+        { 
+        }
 
     }
 

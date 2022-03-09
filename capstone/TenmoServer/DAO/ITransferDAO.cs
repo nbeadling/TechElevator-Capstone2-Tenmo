@@ -10,11 +10,11 @@ namespace TenmoServer.DAO
     {
         public decimal SendTransfer(decimal amount);
 
-        public decimal ReceiveTransfer(decimal amount);
+        //public decimal ReceiveTransfer(decimal amount);
 
-        List<Transfer> GetTransfers();
+        List<Transfer> GetTransfersByUser();
 
-        public Transfer GetTranfersById(int id); 
+        public Transfer GetTranferById(int id); 
 
         
     }
