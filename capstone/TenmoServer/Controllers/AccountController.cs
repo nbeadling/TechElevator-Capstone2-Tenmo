@@ -37,10 +37,12 @@ namespace TenmoServer.Controllers
                 return NotFound();
             }
 
-            Account updatedAccount = accountDao.IncreaseBalance(amount, id);
+            accountDao.IncreaseBalance(amount, id);
+            Account updatedAccount = accountDao.GetAccountById(id); 
             return Ok(updatedAccount);
         }
 
+        [HttpPut("{id}")]
         public ActionResult<Account> DecreaseBalance(decimal amount, int id)
         {
             Account existingAccount = accountDao.GetAccountById(id);
@@ -49,7 +51,8 @@ namespace TenmoServer.Controllers
                 return NotFound();
             }
 
-            Account updatedAccount = accountDao.DecreaseBalance(amount, id);
+            accountDao.DecreaseBalance(amount, id);
+            Account updatedAccount = accountDao.GetAccountById(id);
             return Ok(updatedAccount);
         }
         

@@ -21,14 +21,22 @@ namespace TenmoServer.DAO
        
         public Account GetAccountById(int id)
         {
-           foreach (Account account in Accounts)
-           {
-                if (account.Account_Id == id)
+            Account account = null; 
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open(); 
+                SqlCommand cmd = new SqlCommand("Select account_id, user_id, balance FROM account WHERE account_id = @account_id;", conn);
+                cmd.Parameters.AddWithValue("@account_id", id);
+
+                SqlDataReader reader = cmd.ExecuteReader(); 
+
+                if (reader.Read())
                 {
-                    return account;
+                    account = CreateAccountFromReader(reader); 
                 }
-           }
-            return null;
+
+            }
+            return account; 
             //Actually return error code
         }
 
@@ -45,28 +53,45 @@ namespace TenmoServer.DAO
             //actually return error value
         }
 
-        public Account IncreaseBalance(decimal amount, int id)
+        public void IncreaseBalance(decimal amount, int id)
         {
-            Account original = GetAccountById(id);
-            if (original != null)
+          // Account account = null; 
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                original.Balance += amount;
-                return original;
+                conn.Open(); 
+                SqlCommand cmd = new SqlCommand("UPDATE account SET balance = balance + @amount where account_id = @account_id", conn);
+                cmd.Parameters.AddWithValue("@account_id", id);
+                cmd.Parameters.AddWithValue("@amount", amount); 
+
+                cmd.ExecuteNonQuery(); 
             }
-            return null;
+            //return GetAccountById(id); 
+            //return account; 
             //this will be an error handling
         }
 
-        public Account DecreaseBalance(decimal amount, int id)
+        public void DecreaseBalance(decimal amount, int id)
         {
-            Account original = GetAccountById(id);
-            if (original != null)
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                original.Balance -= amount;
-                return original;
+                conn.Open(); 
+                SqlCommand cmd = new SqlCommand("UPDATE account SET balance = balance - @amount where account_id = @account_id", conn);
+                cmd.Parameters.AddWithValue("@account_id", id);
+                cmd.Parameters.AddWithValue("@amount", amount); 
+
+                cmd.ExecuteNonQuery(); 
             }
-            return null;
             //this will be an error handling
+        }
+
+        private Account CreateAccountFromReader(SqlDataReader reader)
+        {
+            Account account = new Account();
+            account.Account_Id = Convert.ToInt32(reader["account_id"]);
+            account.User_Id = Convert.ToInt32(reader["user_id"]);
+            account.Balance = Convert.ToDecimal(reader["balance"]);
+
+            return account; 
         }
     }
 }

@@ -12,8 +12,8 @@ namespace TenmoServer.DAO
 
         public Account GetAccountById(int id);
 
-        public Account IncreaseBalance(decimal amount, int id);
+        public void IncreaseBalance(decimal amount, int id);
 
-        public Account DecreaseBalance(decimal amount, int id); 
+        public void DecreaseBalance(decimal amount, int id); 
     }
 }

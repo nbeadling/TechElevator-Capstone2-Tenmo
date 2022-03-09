@@ -13,6 +13,10 @@ namespace TenmoServer.Models
 
         public decimal Balance { get; set; }
 
+        public Account()
+        {
+
+        }
         public Account(int accountId, int userId, decimal balance)
         {
             Account_Id = accountId;
