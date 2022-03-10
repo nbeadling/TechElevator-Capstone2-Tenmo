@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using System.ComponentModel.DataAnnotations;
 
 namespace TenmoServer.Models
 {
@@ -16,7 +18,7 @@ namespace TenmoServer.Models
         public int Account_From { get; set; }
 
         public int Account_To { get; set; }
-
+        [Range(0.01, double.PositiveInfinity, ErrorMessage = "Transfer Amount Cannot be negative")] 
         public decimal Amount { get; set; }
 
         public Transfer(int transferId, int transferTypeId, int transferStatusId, int accountFrom, int accountTo, decimal amount)
