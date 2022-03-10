@@ -13,19 +13,22 @@ namespace TenmoServer.Controllers
     [Route("accounts")]
     [ApiController]
     [Authorize]
-    public class AccountController : ControllerBase
+    public class AccountsController : ControllerBase
     {
         private IAccountDAO accountDao;
 
-        public AccountController(IAccountDAO accountDao)
+        public AccountsController(IAccountDAO accountDao)
         {
             this.accountDao = accountDao;
         }
 
         [HttpGet("{id}")]
-        public decimal GetBalance(int id)
+        public decimal GetBalance()
         {
-            return accountDao.GetBalance(id);
+            string userId = User.FindFirst("sub")?.Value;
+
+            int userIdNumber = Convert.ToInt32(userId);
+            return accountDao.GetBalance(userIdNumber);
         }
 
         [HttpPut("{id}")]

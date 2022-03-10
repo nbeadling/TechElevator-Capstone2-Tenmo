@@ -10,14 +10,14 @@ using TenmoServer.Models;
 
 namespace TenmoServer.Controllers
 {
-    [Route("transfer")]
+    [Route("transfers")]
     [ApiController]
     [Authorize]
-    public class TransferController : ControllerBase
+    public class TransfersController : ControllerBase
     {
         private ITransferDAO transferDAO;
 
-        public TransferController(ITransferDAO transferDAO)
+        public TransfersController(ITransferDAO transferDAO)
         {
             this.transferDAO = transferDAO;
         }
@@ -28,8 +28,10 @@ namespace TenmoServer.Controllers
             return transferDAO.GetTransferById(id);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<List<Transfer>> GetTransferByUserId(int id)
+
+        //Figure out authentication procedure
+        [HttpGet("/users/{userId}/transfers")]
+        public ActionResult<List<Transfer>> GetTransferByUserId()
         {
             string userId = User.FindFirst("sub")?.Value;
 

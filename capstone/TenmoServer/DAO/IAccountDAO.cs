@@ -8,12 +8,12 @@ namespace TenmoServer.DAO
 {
     public interface IAccountDAO
     {
-        public decimal GetBalance(int accountId);
+        decimal GetBalance(int accountId);
 
         public Account GetAccountById(int id);
 
-        public void IncreaseBalance(decimal amount, int id);
+        void IncreaseBalance(decimal amount, int id);
 
-        public void DecreaseBalance(decimal amount, int id); 
+        void DecreaseBalance(decimal amount, int id); 
     }
 }

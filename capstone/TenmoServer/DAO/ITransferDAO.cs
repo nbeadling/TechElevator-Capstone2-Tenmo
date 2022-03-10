@@ -8,13 +8,13 @@ namespace TenmoServer.DAO
 {
     public interface ITransferDAO
     {
-        public Transfer CreateTransfer(Transfer transfer);
+        Transfer CreateTransfer(Transfer transfer);
 
         //public decimal ReceiveTransfer(decimal amount);
 
-        public List<Transfer> GetTransfersByUser(int id);
+        List<Transfer> GetTransfersByUser(int id);
 
-        public Transfer GetTransferById(int id); 
+        Transfer GetTransferById(int id); 
 
         
     }
