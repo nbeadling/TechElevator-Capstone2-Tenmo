@@ -30,7 +30,7 @@ namespace TenmoServer.Controllers
 
 
         //Figure out authentication procedure
-        [HttpGet("/users/{userId}/transfers")]
+        [HttpGet("/users/transfers")]
         public ActionResult<List<Transfer>> GetTransferByUserId()
         {
             string userId = User.FindFirst("sub")?.Value;
@@ -46,7 +46,7 @@ namespace TenmoServer.Controllers
         public ActionResult<Transfer> CreateTransfer(Transfer transfer)
         {
             Transfer added = transferDAO.CreateTransfer(transfer);
-            return Created($"/transfers/{added.Transfer_Id}", added); 
+            return Created($"/transfers/{added.TransferId}", added); 
         }
         
         

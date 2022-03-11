@@ -53,6 +53,43 @@ namespace TenmoClient.Services
 
         // Add application-specific UI methods here...
 
+        public void DisplayBalance(decimal balance)
+        {
+            Console.WriteLine($"Your current account balance is {balance}");
+        }
 
+        public void DisplayAllTransfers(List<Transfer> transfers)
+        {
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("Transfers");
+            Console.WriteLine("ID          From/To                 Amount");
+            Console.WriteLine("-------------------------------------------");
+            foreach (Transfer transfer in transfers)
+            {
+            Console.WriteLine($"{transfer.TransferId}          {transfer.Amount}");
+            }
+            Console.WriteLine("-----------");
+
+            
+        }
+
+        public void DisplayListOfUsers(List<User> users)
+        {
+            Console.WriteLine("|-------------- Users --------------|");
+            Console.WriteLine("     Id | Username                  ");
+            Console.WriteLine("|-------+---------------------------|");
+            foreach (User user in users)
+            {
+                Console.WriteLine($"   {user.UserId} | {user.Username}              |");
+            }
+            Console.WriteLine("|-----------------------------------|");
+
+        }
+        
+        public void PromptForTransferAmount()
+        {
+            return;
+           
+        }
     }
 }

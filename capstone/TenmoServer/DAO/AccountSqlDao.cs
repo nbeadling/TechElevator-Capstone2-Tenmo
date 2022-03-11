@@ -10,7 +10,7 @@ namespace TenmoServer.DAO
     public class AccountSQLDao: IAccountDAO
     {
         private readonly string connectionString;
-        private List<Account> Accounts { get; set; }
+       
         
         public AccountSQLDao(string dbConnectionString)
         {
@@ -76,18 +76,27 @@ namespace TenmoServer.DAO
             return accounts;
         }
 
-        public decimal GetBalance(int id)
-        {   
-            foreach (Account account in Accounts)
-            {
-                if (account.AccountId == id)
-                {
-                    return account.Balance;
-                }
-            }
-            return 0;
-            //actually return error value
-        }
+        //public Account GetAccountByUserId(int id)
+        //{
+        //    Account account = new Account();            
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        conn.Open();
+        //        SqlCommand cmd = new SqlCommand("SELECT * FROM account WHERE user_id = @user_id", conn);
+        //        cmd.Parameters.AddWithValue("@user_id", id);
+        //        SqlDataReader reader = cmd.ExecuteReader();
+
+        //        if (reader.Read())
+        //        {
+        //            account = CreateAccountFromReader(reader);
+        //        }
+
+        //    }
+        //    return account;
+                
+                
+        //        //actually return error value
+        //}
 
         public void IncreaseBalance(decimal amount, int id)
         {
@@ -106,18 +115,21 @@ namespace TenmoServer.DAO
             //this will be an error handling
         }
 
-        public void DecreaseBalance(decimal amount, int id)
+        
+        
+        public Account UpdateBalance(Account account)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open(); 
-                SqlCommand cmd = new SqlCommand("UPDATE account SET balance = balance - @amount where account_id = @account_id", conn);
-                cmd.Parameters.AddWithValue("@account_id", id);
-                cmd.Parameters.AddWithValue("@amount", amount); 
+                SqlCommand cmd = new SqlCommand("UPDATE account SET balance = @balance where account_id = @account_id", conn);
+                cmd.Parameters.AddWithValue("@account_id", account.AccountId);
+                cmd.Parameters.AddWithValue("@balance", account.Balance); 
 
                 cmd.ExecuteNonQuery(); 
             }
-            //this will be an error handling
+            return GetAccountByAccountId(account.AccountId);
+            
         }
 
         //public Account CreateNewAccount(int userId)

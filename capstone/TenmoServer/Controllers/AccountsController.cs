@@ -27,43 +27,60 @@ namespace TenmoServer.Controllers
         {
             return accountDao.GetAllAccounts();
         }
-
-        [HttpGet("{id}")]
-        public decimal GetBalance()
+        
+        [HttpGet("/accounts/myaccount")]
+        public Account GetMyAccount()
         {
             string userId = User.FindFirst("sub")?.Value;
 
             int userIdNumber = Convert.ToInt32(userId);
-            return accountDao.GetBalance(userIdNumber);
+            Account account = accountDao.GetAccountByUserId(userIdNumber);
+            return account;
+        }
+
+        //[HttpGet("/accounts/user/{id}")]
+        //public decimal GetAccountByUserId(int id)
+        //{
+        //    //string userId = User.FindFirst("sub")?.Value;
+
+        //    //int userIdNumber = Convert.ToInt32(userId);
+        //    //Account account = accountDao.GetAccountByAccountId(userIdNumber);
+        //    //return account.Balance;
+        //}
+
+        [HttpGet("{id}")]
+        public Account GetAccountByAccountID(int id)
+        {
+            return accountDao.GetAccountByAccountId(id);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Account> IncreaseBalance(decimal amount, int id)
+        public ActionResult<Account> UpdateBalance(Account account)
         {
-            Account existingAccount = accountDao.GetAccountByAccountId(id);
+            Account existingAccount = accountDao.GetAccountByAccountId(account.AccountId);
             if (existingAccount == null)
             {
                 return NotFound();
             }
 
-            accountDao.IncreaseBalance(amount, id);
-            Account updatedAccount = accountDao.GetAccountByAccountId(id); 
+            accountDao.UpdateBalance(existingAccount);
+            Account updatedAccount = accountDao.GetAccountByAccountId(account.AccountId); 
             return Ok(updatedAccount);
         }
 
-        [HttpPut("{id}")]
-        public ActionResult<Account> DecreaseBalance(decimal amount, int id)
-        {
-            Account existingAccount = accountDao.GetAccountByAccountId(id);
-            if (existingAccount == null)
-            {
-                return NotFound();
-            }
+        //[HttpPut("{id}")]
+        //public ActionResult<Account> DecreaseBalance(decimal amount, int id)
+        //{
+        //    Account existingAccount = accountDao.GetAccountByAccountId(id);
+        //    if (existingAccount == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            accountDao.DecreaseBalance(amount, id);
-            Account updatedAccount = accountDao.GetAccountByAccountId(id);
-            return Ok(updatedAccount);
-        }
+        //    accountDao.DecreaseBalance(amount, id);
+        //    Account updatedAccount = accountDao.GetAccountByAccountId(id);
+        //    return Ok(updatedAccount);
+        //}
         //[HttpPost]
         //public ActionResult<Account> CreateNewAccount(int userId)
         

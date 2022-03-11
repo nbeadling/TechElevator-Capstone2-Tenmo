@@ -21,9 +21,9 @@ namespace TenmoClient.Services
 
         }
 
-        public Account GetAccountByUserId(int userId)
+        public Account GetMyAccount()
         {
-            RestRequest request = new RestRequest($"accounts/{userId}");
+            RestRequest request = new RestRequest("/accounts/myaccount");
             IRestResponse<Account> response = client.Get<Account>(request);
 
             CheckForError(response);
@@ -59,7 +59,7 @@ namespace TenmoClient.Services
             return response.Data;
         }
 
-        public Transfer GetTransferById(int transferId)
+        public Transfer GetTransferByTransferId(int transferId)
         {
             RestRequest request = new RestRequest($"transfers/{transferId}");
             IRestResponse<Transfer> response = client.Get<Transfer>(request);
@@ -67,5 +67,24 @@ namespace TenmoClient.Services
             CheckForError(response);
             return response.Data;
         }
+
+        public List<Transfer> GetTransfersByUserId()
+        {
+            RestRequest request = new RestRequest($"users/transfers");
+            IRestResponse<List<Transfer>> response = client.Get<List<Transfer>>(request);
+
+            CheckForError(response);
+            return response.Data;
+        }
+
+        public List<User> GetAllUsers()
+        {
+            RestRequest request = new RestRequest("users");
+            IRestResponse<List<User>> response = client.Get<List<User>>(request);
+
+            CheckForError(response);
+            return response.Data;
+        }
+        
     }
 }

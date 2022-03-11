@@ -9,10 +9,12 @@ namespace TenmoClient
     {
         private readonly TenmoConsoleService console = new TenmoConsoleService();
         private readonly TenmoApiService tenmoApiService;
+        //private readonly AuthenticatedApiService authApiService;
 
         public TenmoApp(string apiUrl)
         {
             tenmoApiService = new TenmoApiService(apiUrl);
+            //authApiService = new AuthenticatedApiService(apiUrl);
         }
 
         public void Run()
@@ -78,7 +80,7 @@ namespace TenmoClient
 
             if (menuSelection == 2)
             {
-                // View your past transfers
+                ViewPastTransfers();
             }
 
             if (menuSelection == 3)
@@ -88,7 +90,7 @@ namespace TenmoClient
 
             if (menuSelection == 4)
             {
-                // Send TE bucks
+                InitiateSendMoney();
             }
 
             if (menuSelection == 5)
@@ -161,9 +163,47 @@ namespace TenmoClient
 
         private void ViewCurrentBalance()
         {
+            decimal currentBalance = 0.0M;
+            Account currentAccount = tenmoApiService.GetMyAccount();
+            currentBalance = currentAccount.Balance;
+            console.DisplayBalance(currentBalance);
+            console.Pause();
 
         }
 
+        private void ViewPastTransfers()
+        {
+            
+            List<Transfer> transfers = tenmoApiService.GetTransfersByUserId();
+            console.DisplayAllTransfers(transfers);
+            console.Pause();
+        }
 
+        private void InitiateSendMoney()
+        {
+            List <User> users = tenmoApiService.GetAllUsers();
+            foreach (User user in users)
+            {
+                if (user.Username == tenmoApiService.Username)
+                {
+                    users.Remove(user);
+                    break;
+                }
+            }
+            console.DisplayListOfUsers(users);
+            int transferTargetAccount = console.PromptForInteger("Chose a user from the list above to send money to ");
+            decimal transferAmount = console.PromptForDecimal("How much money would you like to transfer?");
+
+            //Account sourceAccount = tenmoApiService.GetAccountByUserId(tenmoApiService.UserId);
+            //Account destinationAccount = tenmoApiService.GetAccountByUserId(transferTargetAccount);
+
+            //sourceAccount.Balance -= transferAmount;
+            //destinationAccount.Balance = +transferAmount;
+
+            //tenmoApiService.UpdateAccount(sourceAccount);
+            //tenmoApiService.UpdateAccount(destinationAccount);
+
+            console.Pause();
+        }
     }
 }

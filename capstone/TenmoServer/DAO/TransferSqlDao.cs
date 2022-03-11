@@ -23,7 +23,7 @@ namespace TenmoServer.DAO
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT t.transfer_id, t.transfer_type_desc, t.transfer_status_desc, t.account_from, t.account_to, t.ammount" +
+                SqlCommand cmd = new SqlCommand("SELECT t.transfer_id, t.transfer_type_id, t.transfer_status_id, t.account_from, t.account_to, t.amount " +
                    "FROM transfer t JOIN account a ON a.account_id = t.account_from OR a.account_id = t.account_to " +
                    "WHERE a.user_id = @user_id;", conn);
                 cmd.Parameters.AddWithValue("@user_id", id);
