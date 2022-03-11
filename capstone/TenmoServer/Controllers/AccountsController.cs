@@ -12,7 +12,7 @@ namespace TenmoServer.Controllers
 {
     [Route("accounts")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class AccountsController : ControllerBase
     {
         private IAccountDAO accountDao;
@@ -20,6 +20,12 @@ namespace TenmoServer.Controllers
         public AccountsController(IAccountDAO accountDao)
         {
             this.accountDao = accountDao;
+        }
+
+        [HttpGet]
+        public List<Account> ListAllAccounts()
+        {
+            return accountDao.GetAllAccounts();
         }
 
         [HttpGet("{id}")]
@@ -34,30 +40,32 @@ namespace TenmoServer.Controllers
         [HttpPut("{id}")]
         public ActionResult<Account> IncreaseBalance(decimal amount, int id)
         {
-            Account existingAccount = accountDao.GetAccountById(id);
+            Account existingAccount = accountDao.GetAccountByAccountId(id);
             if (existingAccount == null)
             {
                 return NotFound();
             }
 
             accountDao.IncreaseBalance(amount, id);
-            Account updatedAccount = accountDao.GetAccountById(id); 
+            Account updatedAccount = accountDao.GetAccountByAccountId(id); 
             return Ok(updatedAccount);
         }
 
         [HttpPut("{id}")]
         public ActionResult<Account> DecreaseBalance(decimal amount, int id)
         {
-            Account existingAccount = accountDao.GetAccountById(id);
+            Account existingAccount = accountDao.GetAccountByAccountId(id);
             if (existingAccount == null)
             {
                 return NotFound();
             }
 
             accountDao.DecreaseBalance(amount, id);
-            Account updatedAccount = accountDao.GetAccountById(id);
+            Account updatedAccount = accountDao.GetAccountByAccountId(id);
             return Ok(updatedAccount);
         }
+        //[HttpPost]
+        //public ActionResult<Account> CreateNewAccount(int userId)
         
         //public IActionResult Index()
         //{

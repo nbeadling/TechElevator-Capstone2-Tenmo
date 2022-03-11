@@ -11,12 +11,12 @@ namespace TenmoServer.Controllers
 {
     [Route("users")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UsersController : ControllerBase
     {
         private IUserDao userDao;
 
-        public UsersController(IAccountDAO accountDao)
+        public UsersController(IUserDao userDao)
         {
             this.userDao = userDao;
         }

@@ -12,7 +12,7 @@ namespace TenmoServer.Controllers
 {
     [Route("transfers")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class TransfersController : ControllerBase
     {
         private ITransferDAO transferDAO;

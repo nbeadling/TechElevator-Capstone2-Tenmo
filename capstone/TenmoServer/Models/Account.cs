@@ -11,7 +11,7 @@ namespace TenmoServer.Models
 
         public int User_Id { get; set; }
 
-        public decimal Balance { get; set; }
+        public decimal Balance { get; set; } = 1000.0M;
 
         public Account()
         {

@@ -10,10 +10,13 @@ namespace TenmoServer.DAO
     {
         decimal GetBalance(int accountId);
 
-        public Account GetAccountById(int id);
+        Account GetAccountByUserId(int id);
+        Account GetAccountByAccountId(int id);
 
         void IncreaseBalance(decimal amount, int id);
 
-        void DecreaseBalance(decimal amount, int id); 
+        void DecreaseBalance(decimal amount, int id);
+
+        List<Account> GetAllAccounts();
     }
 }
