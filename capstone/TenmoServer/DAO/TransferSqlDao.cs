@@ -70,10 +70,10 @@ namespace TenmoServer.DAO
                 SqlCommand cmd = new SqlCommand("INSERT INTO transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
                                                 "OUTPUT INSERTED.transfer_id " +
                                                 "Values(@transfer_type_id, @transfer_status_id, @account_from, @account_to, @amount);", conn);
-                cmd.Parameters.AddWithValue("@transfer_type_id", transfer.Transfer_Type_Id);
-                cmd.Parameters.AddWithValue("@transfer_status_id", transfer.Transfer_Status_Id);
-                cmd.Parameters.AddWithValue("@account_from", transfer.Account_From);
-                cmd.Parameters.AddWithValue("@account_to", transfer.Account_To);
+                cmd.Parameters.AddWithValue("@transfer_type_id", transfer.TransferTypeId);
+                cmd.Parameters.AddWithValue("@transfer_status_id", transfer.TransferStatusId);
+                cmd.Parameters.AddWithValue("@account_from", transfer.AccountFrom);
+                cmd.Parameters.AddWithValue("@account_to", transfer.AccountTo);
                 cmd.Parameters.AddWithValue("@amount", transfer.Amount);
 
                 newTransferId = Convert.ToInt32(cmd.ExecuteScalar()); 
@@ -86,11 +86,11 @@ namespace TenmoServer.DAO
         private Transfer CreateTransferFromReader(SqlDataReader reader)
         {
             Transfer transfer = new Transfer();
-            transfer.Transfer_Id = Convert.ToInt32(reader["transfer_id"]);
-            transfer.Transfer_Type_Id = Convert.ToInt32(reader["transfer_type_id"]);
-            transfer.Transfer_Status_Id = Convert.ToInt32(reader["transfer_status_id"]);
-            transfer.Account_From = Convert.ToInt32(reader["account_from"]);
-            transfer.Account_To = Convert.ToInt32(reader["account_to"]);
+            transfer.TransferId = Convert.ToInt32(reader["transfer_id"]);
+            transfer.TransferTypeId = Convert.ToInt32(reader["transfer_type_id"]);
+            transfer.TransferStatusId = Convert.ToInt32(reader["transfer_status_id"]);
+            transfer.AccountFrom = Convert.ToInt32(reader["account_from"]);
+            transfer.AccountTo = Convert.ToInt32(reader["account_to"]);
             transfer.Amount = Convert.ToDecimal(reader["amount"]);
 
             return transfer;

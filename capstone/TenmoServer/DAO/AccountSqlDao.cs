@@ -80,7 +80,7 @@ namespace TenmoServer.DAO
         {   
             foreach (Account account in Accounts)
             {
-                if (account.Account_Id == id)
+                if (account.AccountId == id)
                 {
                     return account.Balance;
                 }
@@ -140,8 +140,8 @@ namespace TenmoServer.DAO
         private Account CreateAccountFromReader(SqlDataReader reader)
         {
             Account account = new Account();
-            account.Account_Id = Convert.ToInt32(reader["account_id"]);
-            account.User_Id = Convert.ToInt32(reader["user_id"]);
+            account.AccountId = Convert.ToInt32(reader["account_id"]);
+            account.UserId = Convert.ToInt32(reader["user_id"]);
             account.Balance = Convert.ToDecimal(reader["balance"]);
 
             return account; 

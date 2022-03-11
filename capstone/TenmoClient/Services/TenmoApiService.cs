@@ -21,9 +21,9 @@ namespace TenmoClient.Services
 
         }
 
-        public Account GetAccountById(int accountId)
+        public Account GetAccountByUserId(int userId)
         {
-            RestRequest request = new RestRequest($"accounts/{accountId}");
+            RestRequest request = new RestRequest($"accounts/{userId}");
             IRestResponse<Account> response = client.Get<Account>(request);
 
             CheckForError(response);
@@ -42,7 +42,7 @@ namespace TenmoClient.Services
 
         public Account UpdateAccount(Account accountToUpdate)
         {
-            RestRequest request = new RestRequest($"accounts/{accountToUpdate.Account_Id}");
+            RestRequest request = new RestRequest($"accounts/{accountToUpdate.AccountId}");
             request.AddJsonBody(accountToUpdate);
             IRestResponse<Account> response = client.Put<Account>(request);
 

@@ -7,9 +7,9 @@ namespace TenmoServer.Models
 {
     public class Account
     {
-        public int Account_Id { get; set; }
+        public int AccountId { get; set; }
 
-        public int User_Id { get; set; }
+        public int UserId { get; set; }
 
         public decimal Balance { get; set; } = 1000.0M;
 
@@ -19,8 +19,8 @@ namespace TenmoServer.Models
         }
         public Account(int accountId, int userId, decimal balance)
         {
-            Account_Id = accountId;
-            User_Id = userId;
+            AccountId = accountId;
+            UserId = userId;
             Balance = balance;
         }
     }

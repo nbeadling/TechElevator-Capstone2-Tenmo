@@ -73,7 +73,7 @@ namespace TenmoClient
 
             if (menuSelection == 1)
             {
-                // View your current balance
+                ViewCurrentBalance(); 
             }
 
             if (menuSelection == 2)
@@ -158,5 +158,12 @@ namespace TenmoClient
             }
             console.Pause();
         }
+
+        private void ViewCurrentBalance()
+        {
+
+        }
+
+
     }
 }
