@@ -38,15 +38,11 @@ namespace TenmoServer.Controllers
             return account;
         }
 
-        //[HttpGet("/accounts/user/{id}")]
-        //public decimal GetAccountByUserId(int id)
-        //{
-        //    //string userId = User.FindFirst("sub")?.Value;
-
-        //    //int userIdNumber = Convert.ToInt32(userId);
-        //    //Account account = accountDao.GetAccountByAccountId(userIdNumber);
-        //    //return account.Balance;
-        //}
+        [HttpGet("/accounts/users/{id}")]
+        public Account GetAccountByUserId(int id)
+        {
+            return accountDao.GetAccountByUserId(id);
+        }
 
         [HttpGet("{id}")]
         public Account GetAccountByAccountID(int id)
@@ -55,16 +51,16 @@ namespace TenmoServer.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Account> UpdateBalance(Account account)
+        public ActionResult<Account> UpdateBalance(int id, Account account)
         {
-            Account existingAccount = accountDao.GetAccountByAccountId(account.AccountId);
+            Account existingAccount = accountDao.GetAccountByAccountId(id);
             if (existingAccount == null)
             {
                 return NotFound();
             }
 
-            accountDao.UpdateBalance(existingAccount);
-            Account updatedAccount = accountDao.GetAccountByAccountId(account.AccountId); 
+            accountDao.UpdateBalance(account);
+            Account updatedAccount = accountDao.GetAccountByAccountId(id); 
             return Ok(updatedAccount);
         }
 

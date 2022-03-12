@@ -30,7 +30,16 @@ namespace TenmoClient.Services
             return response.Data;
         }
 
-        public Transfer IntitiateTransfer(Transfer newTransfer)
+        public Account GetAccountByUserId(int id)
+        {
+            RestRequest request = new RestRequest($"/accounts/users/{id}");
+            IRestResponse<Account> response = client.Get<Account>(request);
+
+            CheckForError(response);
+            return response.Data;
+        }
+
+        public Transfer CreateTransfer(Transfer newTransfer)
         {
             RestRequest request = new RestRequest("transfers");
             request.AddJsonBody(newTransfer);
@@ -40,9 +49,9 @@ namespace TenmoClient.Services
             return response.Data;
         }
 
-        public Account UpdateAccount(Account accountToUpdate)
+        public Account UpdateAccount(int id, Account accountToUpdate)
         {
-            RestRequest request = new RestRequest($"accounts/{accountToUpdate.AccountId}");
+            RestRequest request = new RestRequest($"accounts/{id}");
             request.AddJsonBody(accountToUpdate);
             IRestResponse<Account> response = client.Put<Account>(request);
 

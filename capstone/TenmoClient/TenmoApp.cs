@@ -191,17 +191,20 @@ namespace TenmoClient
                 }
             }
             console.DisplayListOfUsers(users);
-            int transferTargetAccount = console.PromptForInteger("Chose a user from the list above to send money to ");
+            int transferTargetAccount = console.PromptForInteger("Chose a user number from the list above to send money to: ");
             decimal transferAmount = console.PromptForDecimal("How much money would you like to transfer?");
 
-            //Account sourceAccount = tenmoApiService.GetAccountByUserId(tenmoApiService.UserId);
-            //Account destinationAccount = tenmoApiService.GetAccountByUserId(transferTargetAccount);
+            Account sourceAccount = tenmoApiService.GetAccountByUserId(tenmoApiService.UserId);
+            Account destinationAccount = tenmoApiService.GetAccountByUserId(transferTargetAccount);
 
-            //sourceAccount.Balance -= transferAmount;
-            //destinationAccount.Balance = +transferAmount;
+            sourceAccount.Balance -= transferAmount;
+            destinationAccount.Balance += transferAmount;
 
-            //tenmoApiService.UpdateAccount(sourceAccount);
-            //tenmoApiService.UpdateAccount(destinationAccount);
+            tenmoApiService.UpdateAccount(sourceAccount.AccountId, sourceAccount);
+            tenmoApiService.UpdateAccount(destinationAccount.AccountId, destinationAccount);
+
+            Transfer completedTransfer = new Transfer(2, 2, sourceAccount.AccountId, destinationAccount.AccountId, transferAmount);
+            tenmoApiService.CreateTransfer(completedTransfer);
 
             console.Pause();
         }

@@ -80,7 +80,7 @@ namespace TenmoClient.Services
             Console.WriteLine("|-------+---------------------------|");
             foreach (User user in users)
             {
-                Console.WriteLine($"   {user.UserId} | {user.Username}              |");
+                Console.WriteLine($"   {user.UserId} | {user.Username}              ");
             }
             Console.WriteLine("|-----------------------------------|");
 
