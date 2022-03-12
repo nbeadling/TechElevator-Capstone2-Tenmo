@@ -18,7 +18,7 @@ namespace TenmoClient.Models
 
         public decimal Amount { get; set; }
 
-
+        //change accountFrom and accountTo to objects
 
         public Transfer()
         {
