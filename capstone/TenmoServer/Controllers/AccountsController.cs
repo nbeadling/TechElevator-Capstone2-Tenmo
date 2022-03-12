@@ -12,7 +12,7 @@ namespace TenmoServer.Controllers
 {
     [Route("accounts")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class AccountsController : ControllerBase
     {
         private IAccountDAO accountDao;
@@ -64,25 +64,6 @@ namespace TenmoServer.Controllers
             return Ok(updatedAccount);
         }
 
-        //[HttpPut("{id}")]
-        //public ActionResult<Account> DecreaseBalance(decimal amount, int id)
-        //{
-        //    Account existingAccount = accountDao.GetAccountByAccountId(id);
-        //    if (existingAccount == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    accountDao.DecreaseBalance(amount, id);
-        //    Account updatedAccount = accountDao.GetAccountByAccountId(id);
-        //    return Ok(updatedAccount);
-        //}
-        //[HttpPost]
-        //public ActionResult<Account> CreateNewAccount(int userId)
         
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
     }
 }

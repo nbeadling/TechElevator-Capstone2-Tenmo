@@ -12,7 +12,7 @@ namespace TenmoServer.Controllers
 {
     [Route("transfers")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class TransfersController : ControllerBase
     {
         private ITransferDAO transferDAO;
@@ -29,7 +29,7 @@ namespace TenmoServer.Controllers
         }
 
 
-        //Figure out authentication procedure
+        
         [HttpGet("/users/transfers")]
         public ActionResult<List<Transfer>> GetTransferByUserId()
         {
@@ -51,9 +51,5 @@ namespace TenmoServer.Controllers
         
         
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
     }
 }

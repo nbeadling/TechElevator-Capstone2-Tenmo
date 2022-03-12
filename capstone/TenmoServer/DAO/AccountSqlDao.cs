@@ -132,23 +132,6 @@ namespace TenmoServer.DAO
             
         }
 
-        //public Account CreateNewAccount(int userId)
-        //{
-        //    int newAccountId = 0;
-        //    using (SqlConnection conn = new SqlConnection(connectionString))
-        //    {
-        //        conn.Open();
-        //        SqlCommand cmd = new SqlCommand("INSERT INTO account (user_id, balance)" +
-        //                                        "OUPUT INSERTED.account_id" +
-        //                                        "VALUES (@user_id, balance;", conn);
-        //        cmd.Parameters.AddWithValue("@user_id", userId);
-
-        //        newAccountId = Convert.ToInt32(cmd.ExecuteScalar());
-
-        //    }
-        //    return GetAccountById(newAccountId);
-        //}
-
         private Account CreateAccountFromReader(SqlDataReader reader)
         {
             Account account = new Account();

@@ -18,6 +18,8 @@ namespace TenmoClient.Models
 
         public decimal Amount { get; set; }
 
+
+
         public Transfer()
         {
 

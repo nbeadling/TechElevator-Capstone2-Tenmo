@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TenmoClient.Models;
+using TenmoClient.Services;
 
 namespace TenmoClient.Services
 {
@@ -58,7 +59,7 @@ namespace TenmoClient.Services
             Console.WriteLine($"Your current account balance is {balance}");
         }
 
-        public void DisplayAllTransfers(List<Transfer> transfers)
+        public void DisplayAllTransfers(List<Transfer> transfers, int requestingAccountId)
         {
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Transfers");
@@ -66,7 +67,16 @@ namespace TenmoClient.Services
             Console.WriteLine("-------------------------------------------");
             foreach (Transfer transfer in transfers)
             {
-            Console.WriteLine($"{transfer.TransferId}          {transfer.Amount}");
+                
+                if (transfer.AccountFrom == requestingAccountId)
+                {
+                    Console.WriteLine($"{transfer.TransferId}    To Account #{transfer.AccountTo}     {transfer.Amount}");
+                }
+                if (transfer.AccountTo == requestingAccountId)
+                {
+                    Console.WriteLine($"{transfer.TransferId}     From Account #{transfer.AccountFrom}     {transfer.Amount}");
+                }
+            
             }
             Console.WriteLine("-----------");
 
@@ -86,10 +96,42 @@ namespace TenmoClient.Services
 
         }
         
-        public void PromptForTransferAmount()
+        public void DisplayTransferDetails(Transfer selectedTransfer)
         {
-            return;
-           
+            Console.WriteLine("--------------------------------------------");
+            Console.WriteLine("Transfer Details");
+            Console.WriteLine("--------------------------------------------");
+            Console.WriteLine($"Id: {selectedTransfer.TransferId}");
+            Console.WriteLine($"From: {selectedTransfer.AccountFrom}");
+            Console.WriteLine($"To: {selectedTransfer.AccountTo}");
+            if (selectedTransfer.TransferTypeId == 1)
+            {
+                Console.WriteLine($"Type: Request");
+
+            }
+            if (selectedTransfer.TransferTypeId == 2)
+            {
+                Console.WriteLine("Type: Send");
+            }
+            if (selectedTransfer.TransferStatusId == 1)
+            {
+                Console.WriteLine("Status: Pending");
+            }
+            if (selectedTransfer.TransferStatusId == 2)
+            {
+                Console.WriteLine("Status: Approved");
+
+            }
+            if (selectedTransfer.TransferStatusId == 3)
+            {
+                Console.WriteLine("Status: Rejected");
+            }
+            Console.WriteLine($"Amount: {selectedTransfer.Amount}");
+            
+            
+
         }
+
+
     }
 }
