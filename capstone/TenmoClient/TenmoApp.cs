@@ -181,6 +181,7 @@ namespace TenmoClient
 
         private void InitiateSendMoney()
         {
+            Account sourceAccount = tenmoApiService.GetAccountByUserId(tenmoApiService.UserId); 
             List <User> users = tenmoApiService.GetAllUsers();
             foreach (User user in users)
             {
@@ -191,11 +192,42 @@ namespace TenmoClient
                 }
             }
             console.DisplayListOfUsers(users);
-            int transferTargetAccount = console.PromptForInteger("Chose a user number from the list above to send money to: ");
+
+            int userEnteredAccount = console.PromptForInteger("Chose a user number from the list above to send money to: ", 1001, int.MaxValue);
+                if (userEnteredAccount == tenmoApiService.UserId)
+                {
+                console.PrintError("You can't transfer money into your own account!");
+                console.Pause();
+                return;
+                }
+            int transferTargetAccount = userEnteredAccount;
+
+            Account destinationAccount = tenmoApiService.GetAccountByUserId(transferTargetAccount);
+
+                if(destinationAccount == null)
+                {
+                console.PrintError("You have entered an invalid User number! Please Try Again!");
+                console.Pause();
+                return; 
+                }
+
             decimal transferAmount = console.PromptForDecimal("How much money would you like to transfer?");
 
-            Account sourceAccount = tenmoApiService.GetAccountByUserId(tenmoApiService.UserId);
-            Account destinationAccount = tenmoApiService.GetAccountByUserId(transferTargetAccount);
+            if(transferAmount <= 0)
+            {
+                console.PrintError("You must send a positive amount!");
+                console.Pause();
+                return; 
+            }
+
+            if(transferAmount > sourceAccount.Balance)
+            {
+                console.PrintError("Insufficient Funds!");
+                console.Pause();
+                return; 
+            }
+            //Account sourceAccount = tenmoApiService.GetAccountByUserId(tenmoApiService.UserId);
+           
 
             sourceAccount.Balance -= transferAmount;
             destinationAccount.Balance += transferAmount;
