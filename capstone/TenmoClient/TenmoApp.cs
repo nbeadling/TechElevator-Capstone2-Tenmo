@@ -163,10 +163,8 @@ namespace TenmoClient
 
         private void ViewCurrentBalance()
         {
-            decimal currentBalance = 0.0M;
             Account currentAccount = tenmoApiService.GetMyAccount();
-            currentBalance = currentAccount.Balance;
-            console.DisplayBalance(currentBalance);
+            console.DisplayBalance(currentAccount);
             console.Pause();
 
         }
@@ -179,7 +177,7 @@ namespace TenmoClient
             int requestingAccountId = requestingUser.AccountId;
             
             console.DisplayAllTransfers(transfers, requestingAccountId);
-            int selection = console.PromptForInteger("PLease enter transfer ID to view details (0 to cancel)");
+            int selection = console.PromptForInteger("Please enter transfer ID to view details (0 to cancel)");
             if(selection == 0)
             {
                 return;
@@ -188,7 +186,7 @@ namespace TenmoClient
             Transfer selectedTransfer = tenmoApiService.GetTransferByTransferId(selection);
             if(selectedTransfer == null)
             {
-                console.PrintError("You have entered and invalid transfer, please try again");
+                console.PrintError("You have entered and invalid transfer id, please try again");
                 console.Pause();
                 return;
             }
@@ -198,7 +196,6 @@ namespace TenmoClient
             console.Pause();
 
             
-
         }
 
         private void InitiateSendMoney()
@@ -247,7 +244,7 @@ namespace TenmoClient
                 console.Pause();
                 return; 
             }
-            //Account sourceAccount = tenmoApiService.GetAccountByUserId(tenmoApiService.UserId);
+            
            
             sourceAccount.Balance -= transferAmount;
             destinationAccount.Balance += transferAmount;

@@ -12,6 +12,6 @@ namespace TenmoClient.Models
 
         public decimal Balance { get; set; }
 
-        //add userName in here
+        public string Username { get; set; }
     }
 }

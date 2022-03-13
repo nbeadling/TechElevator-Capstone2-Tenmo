@@ -36,6 +36,8 @@ namespace TenmoServer.DAO
                     transfersByUser.Add(transfer);
                 }
 
+               
+
             }
             return transfersByUser;
         }
@@ -56,6 +58,8 @@ namespace TenmoServer.DAO
                 {
                     transfer = CreateTransferFromReader(reader);
                 }
+
+                
             }
             return transfer;
         } 
