@@ -1,4 +1,4 @@
-Paired Programming project of a clone of Venom. 
+Paired Programming project of a clone of Venmo. 
 
 We used a JSON web token to authenticate users to login, be able to view their blance, transfer funds to other users, and view past transfers.
 
